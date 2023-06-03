@@ -1,4 +1,4 @@
-FROM buildpack-deps:stretch-scm AS builder
+FROM buildpack-deps:bionic-scm AS builder
 
 WORKDIR /tmp
 
@@ -14,7 +14,11 @@ WORKDIR /tmp/curl-7.87.0
 
 RUN ./configure --prefix=/build \
       --disable-shared --enable-static --with-openssl \
-      --disable-gopher && \
+      --disable-dict --disable-file --disable-ftps --disable-gopher \
+      --disable-imap --disable-imaps --disable-ldap \
+      --disable-ldaps --disable-pop3 --disable-pop3s --disable-rtmp --disable-rtsp \
+      --disable-scp --disable-sftp --disable-smb --disable-smbs --disable-smtp \
+      --disable-smtps --disable-telnet --disable-tftp && \
     make && \
     make install
 

@@ -2,10 +2,10 @@ const { MongoClient } = require("mongodb");
 const cp = require('child_process');
 const express = require("express");
 
-const client = new MongoClient("mongodb://mongodb:27017/");
+const client = new MongoClient("mongodb://127.0.0.1:27017/");
 const app = express();
 
-const PORT = process.env.PORT || 4444;
+const PORT = process.env.PORT || 5900;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(require("express-session")({
@@ -15,7 +15,7 @@ app.use(require("express-session")({
 }));
 
 /*
-// TODO: add register functionality
+// STILL TODO: add register functionality
 app.post("/api/register", (req, res) => {
 
 });
@@ -69,14 +69,14 @@ app.post("/api/ping", requiresLogin, (req, res) => {
         }
     }
 
-    cp.spawn('curl', args, { timeout: 2000, cwd: "/tmp" }).on('close', (code) => {
+    cp.spawn('curl', args, { timeout: 90 * 1000, cwd: "/tmp/sandbox" }).on('close', (code) => {
         // TODO: save result to database
-        res.json({ success: true, message: `The site is ${code === 0 ? 'up' : 'down'}` });
+        res.json({ success: true, message: `The site is not so bad after all ;)` });
     });
 });
 
 app.get("/", (req, res) => res.sendFile(req.session.user ? "dashboard.html" : "index.html", { root: "static" }));
 
 client.connect().then(() => {
-    app.listen(PORT, () => console.log(`web/unfinished listening on http://localhost:${PORT}`));
+    app.listen(PORT, () => console.log(`web/almost finished listening on http://localhost:${PORT}`));
 });
